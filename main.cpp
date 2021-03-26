@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <stack>
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 using namespace std;
@@ -39,43 +40,101 @@ vector<string> tokenizer(string linea) {
 
 vector<Dato> convertirTokens(vector<string> tokens) {
 	vector<Dato> data;
-
-	for(int i = 0; i < tokens.size(); i++) {
-
-		char aux;
-		string token = tokens.at(i);
-		aux = token[0];
+	Dato d;
+	//verificar que tipo de dato es
+	if(tokens.at(0)=="I" || tokens.at(0)=="i") {
+		
 		Dato d;
-		char tipo;
-		
-		if(i==0){
-			d.c_tipo=aux;
-			aux=tipo;
-		}
-		
-		if(aux=='+'||aux=='-'||aux=='*'||aux=='/'){
-			//es un operador
-			DatoValor dv;
-			dv.operador=aux;
-			d.valor=dv;
-		}else{
-			if(tipo=='I'||tipo=='i'){
-				DatoValor dv;
-				dv.i_dato=(int)aux;
-				d.valor=dv;
-			}else if(tipo=='F'||tipo=='f'){
-				DatoValor dv;
-				dv.i_dato=(float)aux;
-				d.valor=dv;
-			}else if(tipo=='B'||tipo=='b'){
-				DatoValor dv;
-				dv.i_dato=(unsigned int)aux;
-				d.valor=dv;
+		char aux;
+		string token = tokens.at(0);
+		aux = token[0];
+		d.c_tipo=aux;
+		data.push_back(d);
+
+		for(int i = 1; i < tokens.size(); i++) {
+			string tok = tokens.at(i);
+			if(tok=="+"||tok=="-"||tok=="/"||tok=="*") {
+				Dato dato;
+				char aux2;
+				aux2=tok[0];
+				DatoValor dataValue;
+				dataValue.operador=aux2;
+				dato.valor=dataValue;
+				data.push_back(dato);
+			} else {
+				Dato dato;
+				int aux2;
+				aux2=stoi(tok);
+				DatoValor dataValue;
+				dataValue.i_dato=aux2;
+				dato.valor=dataValue;
+				data.push_back(dato);
 			}
 		}
 
+	} else if(tokens.at(0)=="F" || tokens.at(0)=="f") {
+		
+		Dato d;
+		char aux;
+		string token = tokens.at(0);
+		aux = token[0];
+		d.c_tipo=aux;
 		data.push_back(d);
+
+		for(int i = 1; i < tokens.size(); i++) {
+			string tok = tokens.at(i);
+			if(tok=="+"||tok=="-"||tok=="/"||tok=="*"){
+				Dato dato;
+				char aux2;
+				aux2=tok[0];
+				DatoValor dataValue;
+				dataValue.operador=aux2;
+				dato.valor=dataValue;
+				data.push_back(dato);
+			}else{
+				Dato dato;
+				float aux2;
+				aux2=stof(tok);
+				DatoValor dataValue;
+				dataValue.f_dato=aux2;
+				dato.valor=dataValue;
+				data.push_back(dato);
+			}
+		}
+
+	} else if(tokens.at(0)=="B" || tokens.at(0)=="b") {
+		
+		Dato d;
+		char aux;
+		string token = tokens.at(0);
+		aux = token[0];
+		d.c_tipo=aux;
+		data.push_back(d);
+
+		for(int i = 1; i < tokens.size(); i++) {
+			string tok = tokens.at(i);
+			if(tok=="+"||tok=="-"||tok=="/"||tok=="*"){
+				Dato dato;
+				char aux2;
+				aux2=tok[0];
+				DatoValor dataValue;
+				dataValue.operador=aux2;
+				dato.valor=dataValue;
+				data.push_back(dato);
+			}else{
+				Dato dato;
+				float aux2;
+				aux2=stoul(tok);
+				DatoValor dataValue;
+				dataValue.ui_dato=aux2;
+				dato.valor=dataValue;
+				data.push_back(dato);
+			}
+		}
+		
 	}
+
+
 
 	return data;
 }
@@ -87,20 +146,18 @@ int main(int argc, char** argv) {
 
 	while(getline(leer_texto,linea)) {
 
-
-		//imprimir los tokens
 		vector<string> line;
 		line=tokenizer(linea);
 		vector<Dato> datos;
 		datos =	convertirTokens(line);
-		for(int i = 0; i < datos.size(); i++) {
+		
+		for(int i = 0; i < datos.size(); i++){
 			Dato d;
-			d = datos.at(i);
+			d=datos.at(i);
 			cout<<d.c_tipo<<endl;
 		}
 
-		cout<<"--------------------------"<<endl;
-
+		cout<<"---------------"<<endl;
 	}
 
 	leer_texto.close();
