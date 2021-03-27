@@ -40,7 +40,6 @@ vector<string> tokenizer(string linea) {
 
 vector<Dato> convertirTokens(vector<string> tokens) {
 	vector<Dato> data;
-	Dato d;
 	//verificar que tipo de dato es
 	if(tokens.at(0)=="I" || tokens.at(0)=="i") {
 		
@@ -57,17 +56,13 @@ vector<Dato> convertirTokens(vector<string> tokens) {
 				Dato dato;
 				char aux2;
 				aux2=tok[0];
-				DatoValor dataValue;
-				dataValue.operador=aux2;
-				dato.valor=dataValue;
+				dato.valor.operador=aux2;
 				data.push_back(dato);
 			} else {
 				Dato dato;
 				int aux2;
 				aux2=stoi(tok);
-				DatoValor dataValue;
-				dataValue.i_dato=aux2;
-				dato.valor=dataValue;
+				dato.valor.i_dato=aux2;
 				data.push_back(dato);
 			}
 		}
@@ -87,17 +82,13 @@ vector<Dato> convertirTokens(vector<string> tokens) {
 				Dato dato;
 				char aux2;
 				aux2=tok[0];
-				DatoValor dataValue;
-				dataValue.operador=aux2;
-				dato.valor=dataValue;
+				dato.valor.operador=aux2;
 				data.push_back(dato);
 			}else{
 				Dato dato;
 				float aux2;
 				aux2=stof(tok);
-				DatoValor dataValue;
-				dataValue.f_dato=aux2;
-				dato.valor=dataValue;
+				dato.valor.f_dato=aux2;
 				data.push_back(dato);
 			}
 		}
@@ -123,20 +114,37 @@ vector<Dato> convertirTokens(vector<string> tokens) {
 				data.push_back(dato);
 			}else{
 				Dato dato;
-				float aux2;
+				unsigned int aux2;
 				aux2=stoul(tok);
-				DatoValor dataValue;
-				dataValue.ui_dato=aux2;
-				dato.valor=dataValue;
+				dato.valor.ui_dato=aux2;
 				data.push_back(dato);
 			}
 		}
 		
 	}
 
-
-
 	return data;
+}
+
+Dato evaluarOperacion(vector<Dato> datos){
+	//para los ints
+	/*
+	vector<char> operadores;
+	if(datos.at(0)==(Dato)'I' || datos.at(0)=='I'){
+		stack<int> pila;
+		for(int i = 1; i < datos.size(); i++){
+			if(datos.at(i)=='+'||datos.at(i)=='-'||datos.at(i)=='*'||datos.at(i)=='/'){
+				char aux = datos.at(i);
+				
+			}
+		}	
+	}
+	*/
+	//para los floats
+	
+	
+	
+	//para los binarios
 }
 
 int main(int argc, char** argv) {
@@ -150,14 +158,7 @@ int main(int argc, char** argv) {
 		line=tokenizer(linea);
 		vector<Dato> datos;
 		datos =	convertirTokens(line);
-		
-		for(int i = 0; i < datos.size(); i++){
-			Dato d;
-			d=datos.at(i);
-			cout<<d.c_tipo<<endl;
-		}
 
-		cout<<"---------------"<<endl;
 	}
 
 	leer_texto.close();
