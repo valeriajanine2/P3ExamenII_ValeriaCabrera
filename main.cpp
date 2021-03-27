@@ -128,23 +128,47 @@ vector<Dato> convertirTokens(vector<string> tokens) {
 
 Dato evaluarOperacion(vector<Dato> datos){
 	//para los ints
-	/*
+	
+	Dato retornar;
+	stack<int> pila;
 	vector<char> operadores;
-	if(datos.at(0)==(Dato)'I' || datos.at(0)=='I'){
-		stack<int> pila;
+	Dato d = datos.at(0);
+	if(d.c_tipo=='I' || d.c_tipo=='I'){
+		
 		for(int i = 1; i < datos.size(); i++){
-			if(datos.at(i)=='+'||datos.at(i)=='-'||datos.at(i)=='*'||datos.at(i)=='/'){
-				char aux = datos.at(i);
-				
+			Dato d2 = datos.at(i);
+			char aux = d2.valor.operador;
+			if(aux=='+'||aux=='-'||aux=='*'||aux=='/'){
+				char op = aux;
+				operadores.push_back(op);
+			}
+			
+			int num = d2.valor.i_dato;
+			if(num>=0){
+				pila.push(num);
 			}
 		}	
 	}
-	*/
+	
+	//hacer la operacion
+	int topsito;
+	int topsito2;
+	
+	topsito = pila.top();
+	pila.pop();
+	cout<<topsito<<endl;
+	topsito2 = pila.top();
+	pila.pop();
+	
+	cout<<topsito<<" y "<<topsito2<<endl;
+	
 	//para los floats
 	
 	
 	
 	//para los binarios
+	
+	return retornar;
 }
 
 int main(int argc, char** argv) {
@@ -158,6 +182,12 @@ int main(int argc, char** argv) {
 		line=tokenizer(linea);
 		vector<Dato> datos;
 		datos =	convertirTokens(line);
+		//evaluarOperacion(datos);
+		//cout<<endl;
+		for(int i = 0; i < line.size(); i++){
+			cout<<line.at(i)<<endl;
+		}
+		cout<<"-------------------"<<endl;
 
 	}
 
